@@ -7,7 +7,7 @@ CXXFLAGS = -std=c++11 -Wall
 # Target executable
 TARGET = library_app
 
-# Source files
+# Source files (with paths)
 SRCS = main.cpp student.cpp librarian.cpp books.cpp
 
 # Object files
@@ -20,9 +20,9 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-# Compile .cpp files into .o object files
+# Compile .cpp files into .o object files, placing object files in the CPP directory
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up object files and executable
 clean:

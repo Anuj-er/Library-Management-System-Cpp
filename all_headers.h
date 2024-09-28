@@ -2,12 +2,25 @@
 #ifndef ALL_HEADERS_H
 #define ALL_HEADERS_H
 
+// Iostream library for input and output
 #include <iostream>
+
+// Vector library for using vectors
 #include <vector>
+
+// String library for string operations
 #include <string>
+
+// Fstream library for file operations
 #include <fstream>
+
+// Sstream library for string stream operations
 #include <sstream>
+
+// Algorithm library for using algorithms
 #include <algorithm>
+
+// Unordered map library for using unordered maps
 #include <unordered_map>
 
 using namespace std;
@@ -15,13 +28,17 @@ using namespace std;
 // Define the Book structure
 struct Book {
     int id;
-    string title;
-    string author;
-    string publisher;
-    double price;
-    int year;
+    string title; // Title of the book
+    string author; // Author of the book
+    string publisher; // Publisher of the book
+    double price; // Price of the book
+    int year; // Year of publication
     char availability;  // 'Y' for available, 'N' for not available
 };
+
+
+// // Function prototypes for handling students
+vector<pair<string, string>> readStudentsFromCSV(const string& filename);
 
 // Function prototypes for handling books
 vector<Book> readBooksFromCSV(const string& filename);
@@ -34,6 +51,7 @@ class Student {
 private:
     vector<Book> &books;  // Reference to the book collection
     unordered_map<int, Book> issuedBooks;  // Issued books by the student
+    unordered_map<int, int> issuedDurations;  // Maps bookID to duration in days
     unordered_map<int, Book> returnedBooks;  // Returned books by the student
 public:
     Student(vector<Book> &bks);  // Constructor

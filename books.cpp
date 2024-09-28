@@ -4,9 +4,9 @@
 // Read the books from the CSV file
 vector<Book> readBooksFromCSV(const string& filename) {
     // Create a vector to store the books
-    vector<Book> books;
-    ifstream file(filename);
-    string line, word;
+    vector<Book> books; // Vector to store the books
+    ifstream file(filename); // Open the file
+    string line, word; // Variables to read each line and word
 
     // Skip the header line
     int idCounter = 1;

@@ -40,19 +40,57 @@ void Librarian::viewRecentlyReceivedBooks() {
         cout << "No recently received books." << endl;
     } else {
         cout << "Recently received books: " << endl;
+        
+        // Sort the recently received books by ID (assuming ID correlates with recency)
+        // You can modify this to sort by other criteria like date received if available.
+        sort(recentlyReceivedBooks.begin(), recentlyReceivedBooks.end(), 
+            [](const Book& a, const Book& b) { return a.id > b.id; });
+        
         for (const auto& book : recentlyReceivedBooks) {
-            cout << book.title << " by " << book.author << " (ID: " << book.id << ")" << endl;
+            cout << "Title: " << book.title << endl;
+            cout << "Author: " << book.author << endl;
+            cout << "Publisher: " << book.publisher << endl;
+            cout << "Year: " << book.year << endl;
+            cout << "Price: $" << book.price << endl;
+            cout << "Availability: " << (book.availability == 'Y' ? "Available" : "Not Available") << endl;
+            cout << "ID: " << book.id << endl;
+            cout << "--------------------------" << endl;
         }
     }
 }
 
+
+// Function to remove a book
 void Librarian::removeBook(int bookID) {
-    for (auto it = books.begin(); it != books.end(); ++it) {
-        if (it->id == bookID) {
-            books.erase(it);
-            cout << "Book removed." << endl;
-            return;
+    auto bookIt = find_if(books.begin(), books.end(), [bookID](const Book& book) {
+        return book.id == bookID;
+    });
+
+    if (bookIt != books.end()) {
+        // Confirming book details before removal
+        cout << "Removing book: " << endl;
+        cout << "Title: " << bookIt->title << endl;
+        cout << "Author: " << bookIt->author << endl;
+        cout << "Publisher: " << bookIt->publisher << endl;
+        cout << "Year: " << bookIt->year << endl;
+        cout << "Price: $" << bookIt->price << endl;
+        cout << "Availability: " << (bookIt->availability == 'Y' ? "Available" : "Not Available") << endl;
+
+        // Remove book from books collection
+        books.erase(bookIt);
+        cout << "Book removed successfully." << endl;
+
+        // Remove the book from recently received books, if applicable
+        auto recentIt = find_if(recentlyReceivedBooks.begin(), recentlyReceivedBooks.end(), [bookID](const Book& book) {
+            return book.id == bookID;
+        });
+
+        if (recentIt != recentlyReceivedBooks.end()) {
+            recentlyReceivedBooks.erase(recentIt);
+            cout << "Book also removed from recently received books." << endl;
         }
+
+    } else {
+        cout << "No book found with ID: " << bookID << endl;
     }
-    cout << "No book found with ID: " << bookID << endl;
 }

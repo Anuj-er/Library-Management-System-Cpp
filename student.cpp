@@ -1,5 +1,22 @@
 #include "all_headers.h"
 
+
+// FUnction to read students from CSV
+vector<pair<string, string>> readStudentsFromCSV(const string& filename) {
+    vector<pair<string, string>> students;
+    ifstream file(filename);
+    string line, rollNo, name;
+
+    // Read each line from the file
+    while (getline(file, line)) {
+        stringstream ss(line);
+        getline(ss, rollNo, ',');  // Read Roll No.
+        getline(ss, name, ',');    // Read Student Name
+        students.push_back(make_pair(rollNo, name));  // Store Roll No. and Name
+    }
+    return students;
+}
+
 // Constructor
 Student::Student(vector<Book> &bks) : books(bks) {}
 
@@ -26,10 +43,17 @@ void Student::issueBook(int bookID) {
                 cout << "You are about to issue the book: " << book.title << ". Do you want to proceed? (y/n): ";
                 cin >> confirm;
                 cin.ignore(); // Clear the newline character from the input buffer
-                
+
                 if (confirm == 'y' || confirm == 'Y') {
-                    issuedBooks[bookID] = book;
-                    cout << "Book issued: " << book.title << endl;
+                    int duration;
+                    cout << "Enter the duration for issuing the book (in days): ";
+                    cin >> duration;
+                    cin.ignore(); // Clear the newline character from the input buffer
+
+                    issuedBooks[bookID] = book;  // Store the issued book details
+                    issuedDurations[bookID] = duration;  // Store the issuing duration
+
+                    cout << "Book issued: " << book.title << " for " << duration << " days." << endl;
                 } else {
                     cout << "Issuing cancelled." << endl;
                 }
@@ -54,22 +78,24 @@ void Student::viewIssuedBooks() {
         }
     }
 }
-
 // Function to return a book
 void Student::returnBook(int bookID) {
     if (issuedBooks.find(bookID) != issuedBooks.end()) {
         // Get the book details for confirmation
         Book bookToReturn = issuedBooks[bookID];
+        int duration = issuedDurations[bookID];  // Get the duration left for the issued book
 
         // Confirm returning by displaying the book title
         char confirm;
-        cout << "You are about to return the book: " << bookToReturn.title << ". Do you want to proceed? (y/n): ";
+        cout << "You are about to return the book: " << bookToReturn.title 
+             << ". You have " << duration << " days left. Do you want to proceed? (y/n): ";
         cin >> confirm;
         cin.ignore(); // Clear the newline character from the input buffer
 
         if (confirm == 'y' || confirm == 'Y') {
             returnedBooks[bookID] = bookToReturn; // Add to returned books
-            issuedBooks.erase(bookID); // Remove from issued books
+            issuedBooks.erase(bookID);  // Remove from issued books
+            issuedDurations.erase(bookID);  // Remove the book's duration
             cout << "Book returned: " << bookToReturn.title << endl;
         } else {
             cout << "Returning cancelled." << endl;
