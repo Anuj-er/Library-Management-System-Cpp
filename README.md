@@ -29,13 +29,13 @@ Welcome to the **Library Management System**! This console-based application is 
 Here’s a glimpse of the system in action:
 
 - **Main Interface**:  
-  ![Main Interface](./project-report/images/interface.png)
+  ![Main Interface](Project-Report/images/interface.png)
 
 - **Student Interface**:  
-  ![Student Interface](./project-report/images/student.png)
+  ![Student Interface](Project-Report/images/student.png)
 
 - **Librarian Interface**:  
-  ![Librarian Interface](./project-report/images/librarian.png)
+  ![Librarian Interface](Project-Report/images/librarian.png)
 
 ## 🛠️ Installation
 
