@@ -1,5 +1,25 @@
 #include "all_headers.h"
 
+
+// Greet when Open
+void greet() {
+
+    cout << "*****************************************************" << endl;
+    cout << "***** Welcome to the Library Management System! *****" << endl;
+    cout << "*****************************************************" << endl;
+
+    cout << "========================================" << endl;
+    cout << "  _        __  __      _____ \n";
+    cout << " | |      |  \\/  |    / ____|\n";
+    cout << " | |      | |\\/| |   | (___  \n";
+    cout << " | |      | |  | |    \\___ \\ \n";
+    cout << " | |___   | |  | |    ____) |\n";
+    cout << " |_____|  |_|  |_|   |_____/ \n";
+    cout << "========================================" << endl;
+    cout << endl;
+    cout << "== Developed by: Anuj Kumar ==\n";
+    cout << endl;
+}
 // Function to display the menu for Student actions
 void displayStudentMenu() {
     cout << "\n=== Student Menu ===" << endl;
@@ -62,7 +82,7 @@ bool continuePrompt() {
 int main() {
     // Load the books from CSV file
     vector<Book> books = readBooksFromCSV("BooksDatasetCleanAnuj.csv");
-
+    greet();
     string userType;
     cout << "Are you a student or librarian? (Enter 'student' or 'librarian'): ";
     getline(cin, userType);
